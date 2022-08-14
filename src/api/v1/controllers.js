@@ -1,5 +1,7 @@
+const { default: axios } = require("axios");
 const dayjs = require("dayjs");
 const { db } = require("../../db");
+const { findFreeCapacityByDate } = require("./utils");
 
 exports.addOrder = async (req, res, next) => {
   // #swagger.tags = ['order']
@@ -8,6 +10,15 @@ exports.addOrder = async (req, res, next) => {
     const { capacity, status, customerName, customerPhone, destination } =
       req.body;
 
+    const currentDateString = dayjs().format("YYYY-MM-DD");
+
+    const freeCapacity = await findFreeCapacityByDate(currentDateString);
+
+    if (freeCapacity === 0 || freeCapacity - capacity < 0) {
+      res.status(400);
+      throw new Error("Not enough capacity");
+    }
+
     const order = await db.order.create({
       data: {
         capacity,
@@ -15,7 +26,7 @@ exports.addOrder = async (req, res, next) => {
         customerName,
         customerPhone,
         destination,
-        date: dayjs().format("YYYY-MM-DD"),
+        date: currentDateString,
       },
     });
 
@@ -34,6 +45,13 @@ exports.updateOrderById = async (req, res, next) => {
     const { id } = req.params;
     const { capacity, status, customerName, customerPhone, destination } =
       req.body;
+
+    const freeCapacity = await findFreeCapacityByDate(currentDateString);
+
+    if (freeCapacity === 0 || freeCapacity - capacity < 0) {
+      res.status(400);
+      throw new Error("Not enough capacity");
+    }
 
     const order = await db.order.update({
       where: { id },
@@ -101,17 +119,7 @@ exports.checkCapacityByDate = async (req, res, next) => {
     // Allowed format - YYYY-MM-DD
     const { date } = req.params;
 
-    const orders = await db.order.findMany({
-      where: {
-        date,
-      },
-    });
-
-    const usedCapacity = orders.reduce((currentCapacity, order) => {
-      return currentCapacity + order.capacity;
-    }, 0);
-
-    const freeCapacity = process.env.TOTAL_CAPACITY - usedCapacity;
+    const freeCapacity = await findFreeCapacityByDate(date);
 
     return res.json({
       ok: true,
