@@ -1,6 +1,7 @@
 # Dairy Milk Distributor API
 
 A Rest API built with NodeJS and Express for Dairy Milk Distribution.
+Deployed on AWS EC2 - http://ec2-13-235-113-107.ap-south-1.compute.amazonaws.com:4000/
 
 ## Features
 - Ability to add, delete and update orders.
@@ -28,6 +29,7 @@ A Rest API built with NodeJS and Express for Dairy Milk Distribution.
 - Swagger
 - PNPM
 - Zod
+- AWS EC2
 
 ## How to run
 1. Create a .env file with the following variables:
