@@ -4,11 +4,14 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../swagger-output.json");
 
 const router = require("./api/v1/router");
 
 const app = express();
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
