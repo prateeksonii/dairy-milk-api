@@ -13,6 +13,9 @@
   "paths": {
     "/add": {
       "post": {
+        "tags": [
+          "order"
+        ],
         "description": "",
         "parameters": [
           {
@@ -49,6 +52,9 @@
     },
     "/update/{id}": {
       "put": {
+        "tags": [
+          "order"
+        ],
         "description": "",
         "parameters": [
           {
@@ -91,6 +97,9 @@
     },
     "/delete/{id}": {
       "delete": {
+        "tags": [
+          "order"
+        ],
         "description": "",
         "parameters": [
           {
@@ -109,6 +118,9 @@
     },
     "/updateStatus/{id}": {
       "patch": {
+        "tags": [
+          "order"
+        ],
         "description": "",
         "parameters": [
           {
@@ -139,6 +151,9 @@
     },
     "/checkCapacity/{date}": {
       "get": {
+        "tags": [
+          "order"
+        ],
         "description": "",
         "parameters": [
           {
@@ -154,13 +169,7 @@
           }
         }
       }
-    },
-    "/{add{where{id}}": {
-      "delete": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
     }
+
   }
 }

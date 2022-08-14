@@ -2,6 +2,8 @@ const dayjs = require("dayjs");
 const { db } = require("../../db");
 
 exports.addOrder = async (req, res, next) => {
+  // #swagger.tags = ['order']
+
   try {
     const { capacity, status, customerName, customerPhone, destination } =
       req.body;
@@ -27,6 +29,7 @@ exports.addOrder = async (req, res, next) => {
 };
 
 exports.updateOrderById = async (req, res, next) => {
+  // #swagger.tags = ['order']
   try {
     const { id } = req.params;
     const { capacity, status, customerName, customerPhone, destination } =
@@ -53,6 +56,7 @@ exports.updateOrderById = async (req, res, next) => {
 };
 
 exports.updateStatusById = async (req, res, next) => {
+  // #swagger.tags = ['order']
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -74,6 +78,7 @@ exports.updateStatusById = async (req, res, next) => {
 };
 
 exports.deleteOrderById = async (req, res, next) => {
+  // #swagger.tags = ['order']
   try {
     const { id } = req.params;
 
@@ -91,6 +96,7 @@ exports.deleteOrderById = async (req, res, next) => {
 };
 
 exports.checkCapacityByDate = async (req, res, next) => {
+  // #swagger.tags = ['order']
   try {
     // Allowed format - YYYY-MM-DD
     const { date } = req.params;
