@@ -1,3 +1,4 @@
+const dayjs = require("dayjs");
 const { db } = require("../../db");
 
 exports.addOrder = async (req, res, next) => {
@@ -6,11 +7,14 @@ exports.addOrder = async (req, res, next) => {
       req.body;
 
     const order = await db.order.create({
-      capacity,
-      status,
-      customerName,
-      customerPhone,
-      destination,
+      data: {
+        capacity,
+        status,
+        customerName,
+        customerPhone,
+        destination,
+        date: dayjs().format("YYYY-MM-DD"),
+      },
     });
 
     return res.status(201).json({
@@ -88,6 +92,7 @@ exports.deleteOrderById = async (req, res, next) => {
 
 exports.checkCapacityByDate = async (req, res, next) => {
   try {
+    // Allowed format - YYYY-MM-DD
     const { date } = req.params;
 
     const orders = await db.order.findMany({

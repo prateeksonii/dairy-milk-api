@@ -19,12 +19,14 @@ datasource db {
 // }
 
 model Order {
-  id            Int      @id @default(autoincrement())
+  id            Int    @id @default(autoincrement())
   capacity      Int
   status        String
   customerName  String
   customerPhone String
   destination   String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  date          String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
