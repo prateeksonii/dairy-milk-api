@@ -1,5 +1,10 @@
+require("dotenv/config");
+
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
+const helmet = require("helmet");
+
 const router = require("./api/v1/router");
 
 const app = express();
@@ -20,7 +25,7 @@ app.all("*", (req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-  if (res.status === 200) {
+  if (res.statusCode === 200) {
     res.status(500);
   }
 
