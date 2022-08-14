@@ -1,0 +1,2 @@
+Deployed on AWS EC2
+http://ec2-13-235-113-107.ap-south-1.compute.amazonaws.com:4000/
